@@ -1,0 +1,70 @@
+﻿<section id="top-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 main-title">
+                <h1>TÜRKİYE'DE ŞİRKETLERİN GELİŞİMİ</h1>
+                <p class="lh">
+                    “Türkiye’de Şirketlerin Gelişimi” isimli anket soruları aşağıdaki gibidir.
+                    Değerlendirerek, değişiklik ve katkı isteklerinizi paylaşmanızı önemle istirham ederiz.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container" id="main">
+    <div id="survey_container">
+        <div id="top-wizard">
+            <strong>
+                Sorular
+                <span id="location"></span>
+            </strong>
+            <div id="progressbar"></div>
+        </div>
+        <form id="wrapped" action="~/home/Survey" method="POST" >
+            <div id="middle-wizard">
+                @Html.Partial("~/Views/Questions/Baslangic.cshtml")
+                @Html.Partial("~/Views/Questions/Q1.cshtml")
+                @Html.Partial("~/Views/Questions/Q2.cshtml")
+                @Html.Partial("~/Views/Questions/Q3.cshtml")
+                @Html.Partial("~/Views/Questions/Q4.cshtml")
+                @Html.Partial("~/Views/Questions/Q5_.cshtml")
+                <input id="website" name="website" type="text" value="">
+                <div class="submit step" id="complete">
+                    <i class="icon-check"></i>
+                    <h3>Ankete katıldığınız için teşekkür ederiz.</h3>
+                    <button btn="sendData" name="process" class="submit">Anketi Tamamla</button>
+                </div>
+            </div>
+            <div id="bottom-wizard">
+                <button type="button" name="backward" class="backward">Backward</button>
+                <button type="button" name="forward" class="forward">Forward </button>
+            </div>
+        </form>
+
+    </div>
+</section>
+<script type="text/javascript">
+    $("#wrapped").on("submit", function (e) {
+        e.preventDefault();
+
+        //if (!$("#frm1").valid()) {
+        //    return;
+        //}
+        var _data = $('input:radio:checked').serialize();
+        console.log("ugur");
+        $.ajax({
+            url: "Survey",
+            type: this.method,
+            data: JSON.stringify({ cevaplar: _data }),
+            success: function (res) {
+
+                alert('sendData');
+                $("#result").html(res);
+            }
+        });
+    })
+    $('#sendData').on("click", function () {
+        $('frm1').submit();
+    });
+
+</script>
